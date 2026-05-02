@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Us — The Vigilant Carnival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0392B;
+    --red-dark: #7B241C;
+    --red-light: #E74C3C;
+    --cream: #F5EFD7;
+    --cream-dark: #DDD5B5;
+    --ink: #1A1208;
+    --ink-light: #2C2010;
+    --gold: #C9A227;
+    --gold-dark: #9A7B1A;
+    --olive: #4A4A2A;
+    --paper: #EDE4C6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--ink);
+    color: var(--cream);
+    font-family: 'Special Elite', serif;
+    min-height: 100vh;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--red-dark);
+    border-bottom: 4px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    letter-spacing: 3px;
+    padding: 0.75rem 0;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  nav ul { display: flex; gap: 0; list-style: none; }
+
+  nav ul li a {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+    text-decoration: none;
+    padding: 1.2rem 1.5rem;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  nav ul li a:hover, nav ul li a.active {
+    background: var(--gold-dark);
+    color: var(--ink);
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 4px solid var(--red-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 40px,
+      rgba(192,57,43,0.06) 40px,
+      rgba(192,57,43,0.06) 80px
+    );
+    pointer-events: none;
+  }
+
+  .page-header-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    letter-spacing: 4px;
+    line-height: 0.9;
+    color: var(--cream);
+    text-shadow: 5px 5px 0 var(--red-dark);
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-header h1 span { color: var(--red-light); }
+
+  .page-header p {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--cream-dark);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* MAIN LAYOUT */
+  .join-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* REQUIREMENTS */
+  .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--red-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: 3px;
+    color: var(--cream);
+    line-height: 0.95;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0 var(--red-dark);
+  }
+
+  .req-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .req-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--gold);
+  }
+
+  .req-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 24px;
+    margin-top: 2px;
+  }
+
+  .req-body {}
+
+  .req-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .req-desc {
+    font-family: 'Special Elite', serif;
+    font-size: 0.88rem;
+    color: var(--cream-dark);
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
+  /* RANKS */
+  .ranks {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .rank-card {
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-bottom: none;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .rank-card:last-child {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .rank-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--red-dark);
+    transition: background 0.2s;
+  }
+
+  .rank-card:hover { background: rgba(255,255,255,0.04); }
+  .rank-card:hover::before { background: var(--red-light); }
+
+  .rank-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+
+  .rank-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--cream);
+  }
+
+  .rank-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid;
+  }
+
+  .rank-badge.entry { color: var(--cream-dark); border-color: rgba(255,255,255,0.2); }
+  .rank-badge.mid { color: var(--gold); border-color: var(--gold-dark); }
+  .rank-badge.high { color: var(--red-light); border-color: var(--red); }
+  .rank-badge.elite { color: var(--cream); background: var(--red-dark); border-color: var(--red); }
+
+  .rank-desc {
+    font-size: 0.88rem;
+    color: var(--cream-dark);
+    opacity: 0.7;
+    line-height: 1.55;
+  }
+
+  /* OATH SECTION */
+  .oath-section {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 5rem 2rem;
+    text-align: center;
+    border-top: 6px solid var(--ink);
+    border-bottom: 6px solid var(--ink);
+    position: relative;
+  }
+
+  .oath-section::before {
+    content: '⚑';
+    position: absolute;
+    font-size: 18rem;
+    color: rgba(0,0,0,0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .oath-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--red-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .oath-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 4px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .oath-text {
+    font-family: 'Special Elite', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    max-width: 650px;
+    margin: 0 auto 0.75rem;
+    line-height: 1.9;
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .oath-text strong {
+    color: var(--red-dark);
+  }
+
+  .oath-sig {
+    font-family: 'Special Elite', serif;
+    font-size: 1.8rem;
+    color: var(--red-dark);
+    margin-top: 2rem;
+    opacity: 0.6;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+  }
+
+  /* HOW TO JOIN */
+  .how-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .step {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 3px solid var(--red);
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--red);
+    opacity: 0.4;
+    line-height: 1;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    color: var(--cream-dark);
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink-light);
+    border-top: 3px solid var(--red-dark);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 700px) {
+    .join-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .steps { grid-template-columns: 1fr; }
+    nav ul li a { padding: 1rem; font-size: 0.75rem; letter-spacing: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">THE <span>VIGILANT</span> CARNIVAL</a>
+  <ul>
+    <li><a href="index.html">About</a></li>
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="join.html" class="active">Join Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="page-header-badge">Ridgeway County Recruitment</span>
+  <h1>Enlist in<br><span>The Carnival</span></h1>
+  <p>The Vigilant Carnival doesn't recruit the timid. We want the bold — those who see authority for what it is and refuse to bow.</p>
+</div>
+
+<!-- REQUIREMENTS + RANKS -->
+<div class="join-layout">
+
+  <!-- Requirements -->
+  <div>
+    <p class="section-label">What We Expect</p>
+    <h2 class="section-title">Requirements<br>for Entry</h2>
+
+    <ul class="req-list">
+      <li>
+        <span class="req-icon">★</span>
+        <div class="req-body">
+          <p class="req-title">Active in Ridgeway County</p>
+          <p class="req-desc">You must be an active player in Ridgeway County. Inactive members serve no purpose to the carnival.</p>
+        </div>
+      </li>
+      <li>
+        <span class="req-icon">★</span>
+        <div class="req-body">
+          <p class="req-title">Loyalty to the Group</p>
+          <p class="req-desc">No double allegiances. If you're with us, you're with us — not with law enforcement or any DOT-aligned faction.</p>
+        </div>
+      </li>
+      <li>
+        <span class="req-icon">★</span>
+        <div class="req-body">
+          <p class="req-title">Willingness to Act</p>
+          <p class="req-desc">We don't take passengers. Members participate in operations, patrols, and group activities regularly.</p>
+        </div>
+      </li>
+      <li>
+        <span class="req-icon">★</span>
+        <div class="req-body">
+          <p class="req-title">Respect the Code</p>
+          <p class="req-desc">We oppose authority — not each other. Internal respect and communication are non-negotiable inside the Carnival.</p>
+        </div>
+      </li>
+      <li>
+        <span class="req-icon">★</span>
+        <div class="req-body">
+          <p class="req-title">No Law Enforcement Background</p>
+          <p class="req-desc">Former or current police characters are not welcome. The badge and the carnival cannot coexist.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Ranks -->
+  <div>
+    <p class="section-label">The Hierarchy</p>
+    <h2 class="section-title">Ranks of<br>The Carnival</h2>
+
+    <div class="ranks">
+      <div class="rank-card">
+        <div class="rank-header">
+          <span class="rank-name">Drifter</span>
+          <span class="rank-badge entry">Entry</span>
+        </div>
+        <p class="rank-desc">New recruits. Proving their loyalty and learning how the Carnival operates. Every legend starts here.</p>
+      </div>
+      <div class="rank-card">
+        <div class="rank-header">
+          <span class="rank-name">Roustabout</span>
+          <span class="rank-badge mid">Member</span>
+        </div>
+        <p class="rank-desc">Trusted members who've shown up consistently. Cleared for group operations and internal communications.</p>
+      </div>
+      <div class="rank-card">
+        <div class="rank-header">
+          <span class="rank-name">Performer</span>
+          <span class="rank-badge mid">Veteran</span>
+        </div>
+        <p class="rank-desc">Veterans who lead by example. Known faces in the county. Assigned roles in coordinated actions.</p>
+      </div>
+      <div class="rank-card">
+        <div class="rank-header">
+          <span class="rank-name">Ringmaster</span>
+          <span class="rank-badge high">Officer</span>
+        </div>
+        <p class="rank-desc">Officers who coordinate operations and manage members. Speak for the Carnival and direct the show.</p>
+      </div>
+      <div class="rank-card">
+        <div class="rank-header">
+          <span class="rank-name">The Director</span>
+          <span class="rank-badge elite">Leadership</span>
+        </div>
+        <p class="rank-desc">Founders and top leadership. They run the Carnival. Their word is law — the only law we follow.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- OATH -->
+<div class="oath-section">
+  <p class="oath-label">The Pledge</p>
+  <h2 class="oath-title">The Carnival Oath</h2>
+  <p class="oath-text">
+    I join the Vigilant Carnival of my own free will.<br>
+    I answer to <strong>no badge, no barrier, no permit</strong>.<br>
+    I stand with my fellow members above all else.<br>
+    I will disrupt, dissent, and <strong>never comply</strong>.<br>
+    The county belongs to the people — and we are the people.
+  </p>
+  <p class="oath-sig">— Signed in defiance</p>
+</div>
+
+<!-- HOW TO JOIN -->
+<div class="how-section">
+  <p class="section-label" style="text-align:center;">Process</p>
+  <h2 class="section-title" style="text-align:center;font-size:clamp(2rem,5vw,4rem);">How to Enlist</h2>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <p class="step-title">Find Us In-Game</p>
+      <p class="step-desc">Locate a Carnival member or Ringmaster in Ridgeway County. Make yourself known — we notice who moves with purpose.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <p class="step-title">Pass the Vetting</p>
+      <p class="step-desc">A Ringmaster or above will speak with you. No forms. No applications. We judge character by presence — not paperwork.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <p class="step-title">Take the Oath</p>
+      <p class="step-desc">Say the words. Mean them. You're a Drifter now — prove you belong here and the Carnival will rise with you.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-logo">The Vigilant Carnival</p>
+  <p class="footer-sub">Ridgeway County &nbsp;•&nbsp; No Permits Required</p>
+</footer>
+
+</body>
+</html>
