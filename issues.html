@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Issues — The Vigilant Carnival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0392B;
+    --red-dark: #7B241C;
+    --red-light: #E74C3C;
+    --cream: #F5EFD7;
+    --cream-dark: #DDD5B5;
+    --ink: #1A1208;
+    --ink-light: #2C2010;
+    --gold: #C9A227;
+    --gold-dark: #9A7B1A;
+    --olive: #4A4A2A;
+    --paper: #EDE4C6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--ink);
+    color: var(--cream);
+    font-family: 'Special Elite', serif;
+    min-height: 100vh;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  nav {
+    background: var(--red-dark);
+    border-bottom: 4px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    letter-spacing: 3px;
+    padding: 0.75rem 0;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  nav ul { display: flex; gap: 0; list-style: none; }
+
+  nav ul li a {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+    text-decoration: none;
+    padding: 1.2rem 1.5rem;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  nav ul li a:hover, nav ul li a.active {
+    background: var(--gold-dark);
+    color: var(--ink);
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 4px solid var(--red-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 40px,
+      rgba(192,57,43,0.06) 40px,
+      rgba(192,57,43,0.06) 80px
+    );
+    pointer-events: none;
+  }
+
+  .page-header-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    letter-spacing: 4px;
+    line-height: 0.9;
+    color: var(--cream);
+    text-shadow: 5px 5px 0 var(--red-dark);
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-header h1 span { color: var(--red-light); }
+
+  .page-header p {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--cream-dark);
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ISSUES */
+  .issues-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .issue-card {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 3.5rem 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .issue-card:last-child {
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .issue-number-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-top: 0.4rem;
+  }
+
+  .issue-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--red);
+    opacity: 0.25;
+    display: block;
+  }
+
+  .issue-tag {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-dark);
+    padding: 0.25rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  .issue-body {}
+
+  .issue-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 2px;
+    color: var(--cream);
+    line-height: 0.95;
+    margin-bottom: 1.25rem;
+    text-shadow: 2px 2px 0 var(--red-dark);
+  }
+
+  .issue-headline span { color: var(--red-light); }
+
+  .issue-text {
+    font-family: 'Special Elite', serif;
+    font-size: 1rem;
+    color: var(--cream-dark);
+    line-height: 1.85;
+    opacity: 0.85;
+  }
+
+  .issue-text strong { color: var(--gold); }
+
+  .issue-callout {
+    margin-top: 1.25rem;
+    border-left: 3px solid var(--red);
+    padding: 0.75rem 1.25rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: var(--cream);
+    background: rgba(192,57,43,0.08);
+    line-height: 1.5;
+  }
+
+  /* DIVIDER BANNER */
+  .divider-banner {
+    background: var(--red-dark);
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    text-align: center;
+    padding: 2.5rem 2rem;
+  }
+
+  .divider-banner p {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: 4px;
+    color: var(--cream);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink-light);
+    border-top: 3px solid var(--red-dark);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 700px) {
+    .issue-card { grid-template-columns: 1fr; gap: 1rem; }
+    .issue-num { font-size: 3rem; }
+    nav ul li a { padding: 1rem; font-size: 0.75rem; letter-spacing: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">THE <span>VIGILANT</span> CARNIVAL</a>
+  <ul>
+    <li><a href="index.html">About</a></li>
+    <li><a href="issues.html" class="active">Issues</a></li>
+    <li><a href="join.html">Join Us</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="page-header-badge">The Vigilant Carnival Platform</span>
+  <h1>Our <span>Issues</span></h1>
+  <p>Ridgeway County is broken. Here is exactly what the Carnival stands against — and what we demand changes, now.</p>
+</div>
+
+<div class="issues-wrapper">
+
+  <!-- ISSUE 1: WEAPONS -->
+  <div class="issue-card">
+    <div class="issue-number-col">
+      <span class="issue-num">01</span>
+      <span class="issue-tag">Arms & Rights</span>
+    </div>
+    <div class="issue-body">
+      <h2 class="issue-headline">Legalize the <span>Para 17</span><br>& All Restricted Arms</h2>
+      <p class="issue-text">
+        The county's ruling class has decided what weapons are permitted — and unsurprisingly, they've kept the most powerful tools for themselves and their enforcers. The Para 17 and every other restricted arm sit behind locked bureaucratic doors while <strong>the people are left defenseless</strong> against a state that grows bolder by the day.
+      </p>
+      <p class="issue-text" style="margin-top:0.75rem;">
+        This is not coincidence. This is strategy. An unarmed population is a controlled population. When tyrants hold the upper hand, there is no limit to what they will do with it — and history in this county has shown us exactly that.
+      </p>
+      <div class="issue-callout">
+        Full legalization of the Para 17 and all restricted weapons. The people have the right to match the firepower of those who would oppress them.
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUE 2: DOT -->
+  <div class="issue-card">
+    <div class="issue-number-col">
+      <span class="issue-num">02</span>
+      <span class="issue-tag">D.O.T.</span>
+    </div>
+    <div class="issue-body">
+      <h2 class="issue-headline">Abolish the <span>D.O.T.</span><br>Leave Our Cars Alone</h2>
+      <p class="issue-text">
+        The Department of Transportation was never about safety. It was always about <strong>dominance</strong>. Every cone placed, every roadblock erected, every citation issued is another brick in the wall they're building around our freedom of movement. They regulate, restrict, and seize — and call it public service.
+      </p>
+      <p class="issue-text" style="margin-top:0.75rem;">
+        Our vehicles are our property. Our roads are public. The D.O.T. has no legitimate authority over either. Their entire apparatus — the inspectors, the permits, the impounds — is a racket designed to shake down ordinary people while the county elite drive freely without consequence.
+      </p>
+      <div class="issue-callout">
+        Abolish the D.O.T. entirely. Dismantle the checkpoints. Return the roads to the people they were built for.
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUE 3: NATIONAL GUARD -->
+  <div class="issue-card">
+    <div class="issue-number-col">
+      <span class="issue-num">03</span>
+      <span class="issue-tag">Militarization</span>
+    </div>
+    <div class="issue-body">
+      <h2 class="issue-headline">Defund the <span>National Guard</span></h2>
+      <p class="issue-text">
+        A paramilitary force patrolling civilian streets is not protection — it is <strong>occupation</strong>. The National Guard in Ridgeway County answers to no one, operates with unchecked authority, and exists for a single purpose: to crush resistance before it can organize. They are the county's iron fist, wrapped in a flag and given a budget.
+      </p>
+      <p class="issue-text" style="margin-top:0.75rem;">
+        Power-hungry and unaccountable, they are deployed not against threats — but against people. Against protests. Against anyone who dares push back. Every dollar that funds their weapons and their vehicles is a dollar taken from communities they patrol like conquered territory.
+      </p>
+      <div class="issue-callout">
+        Defund and disband the National Guard's street operations. No paramilitary force belongs among the people of Ridgeway County.
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUE 4: POLICE REFORM -->
+  <div class="issue-card">
+    <div class="issue-number-col">
+      <span class="issue-num">04</span>
+      <span class="issue-tag">Police Reform</span>
+    </div>
+    <div class="issue-body">
+      <h2 class="issue-headline">Reform the Police.<br><span>No More Free Passes.</span></h2>
+      <p class="issue-text">
+        The Ridgeway County Police Department has operated without consequence for too long. Officers who abuse their authority face no real discipline. Complaints disappear. Investigations go nowhere. The badge has become a <strong>shield against accountability</strong> — and the people bear the cost of every misconduct that goes unpunished.
+      </p>
+      <p class="issue-text" style="margin-top:0.75rem;">
+        We are not asking for perfection. We are demanding basic accountability. Every officer must answer for their actions — to the public, not to an internal committee of their own colleagues. Transparency, civilian oversight, and real consequences for misconduct are not radical ideas. They are the bare minimum.
+      </p>
+      <div class="issue-callout">
+        Full accountability for every officer. Civilian oversight with real authority. No more closed-door investigations. No more free passes.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider-banner">
+  <p>The Carnival doesn't petition. The Carnival demands.</p>
+</div>
+
+<footer>
+  <p class="footer-logo">The Vigilant Carnival</p>
+  <p class="footer-sub">Ridgeway County &nbsp;•&nbsp; No Permits Required</p>
+</footer>
+
+</body>
+</html>
